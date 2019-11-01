@@ -5,7 +5,7 @@
 class Baoming extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('baoming_model');
+		$this->load->model('Baoming_model');
 		$this->load->library('session');
 	}
 

@@ -1,7 +1,7 @@
 <?php
 
 
-class baoming_model extends CI_Model {
+class Baoming_model extends CI_Model {
 	public function __construct() {
 		parent::__construct();
 		$this->load->database();
