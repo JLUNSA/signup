@@ -10,9 +10,9 @@
 
 	<?php echo form_open('baoming/login'); ?>
 
-	<input class="text" type="text" id="jxnumber" placeholder="教学号" missingMessage="必须填写8位教学号" required="true" maxlength="8" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+	<input class="text" type="text" name="jxh" id="jxnumber" placeholder="教学号" missingMessage="必须填写8位教学号" required="true" maxlength="8" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 
-	<input class="text" type="text" id="username" placeholder="姓名" required="">
+	<input class="text" type="text" name="name" id="username" placeholder="姓名" required="">
 
 	<input class="text" type="password" id="pwd" name="password" placeholder="密码" required="">
 
