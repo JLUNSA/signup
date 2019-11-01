@@ -1,50 +1,23 @@
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <title>登录</title>
-  </head>
-  <body>
-    <div class="container">
-            <div class="col">
-              <form class="form-login" action="/login/" method="post">
-                  <h3 class="text-center">JLU-NSA查询页面</h3>
-                  <div class="form-group">
-                  	<label for="name">姓名：</label>
-                  	<input type="text" name="name" class="form-control" id="name" placeholder="Name" autofocus required>
-                  </div>
-                  <div class="form-group">
-                    <label for="id_username">教学号：</label>
-                    <input type="text" name='jxh' class="form-control" id="jxh" placeholder="Username" autofocus required>
-                  </div>
-                  <div class="form-group">
-                    <label for="id_password">密码：</label>
-                    <input type="password" name='password' class="form-control" id="password" placeholder="Password" required>
-                  </div>
-                <div>
-                  <button type="submit" class="btn btn-primary float-right">登录</button>
-                </div>
-              </form>
-            </div>
-    </div> <!-- /container -->
+<div style="padding: 4em">
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-    <script src="https://cdn.bootcss.com/popper.js/1.15.0/umd/popper.js"></script>
-    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<h3 style="font-family:'mylangqian', serif; color: white; margin-bottom: 2em;">登录查询系统</h3>
 
-  </body>
-</html>
+	<?php echo validation_errors('<div class="alert alert-danger" role="alert"><b>', '</b></div>'); ?>
 
+	<?php if($err): ?>
+	<div class="alert alert-danger" role="alert"><b><?php echo $msg; ?></b></div>
+	<?php endif; ?>
 
-<?php
-echo form_error('jxh');
-echo form_error('name');
-echo form_error('password');
-if($err){
-	print($msg);
-}
+	<?php echo form_open('baoming/login'); ?>
+
+	<input class="text" type="text" id="jxnumber" placeholder="教学号" missingMessage="必须填写8位教学号" required="true" maxlength="8" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+
+	<input class="text" type="text" id="username" placeholder="姓名" required="">
+
+	<input class="text" type="password" id="pwd" name="password" placeholder="密码" required="">
+
+	<input id="tj" type="submit" value="登 录">
+
+	</form>
+
+</div>

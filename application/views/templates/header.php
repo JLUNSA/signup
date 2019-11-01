@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
 	<title>CTF网络安全培训报名</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
