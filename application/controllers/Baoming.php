@@ -136,8 +136,26 @@ class Baoming extends CI_Controller {
 	}
 
 	public function status(){
+		$this->load->helper('form');
+		$this->load->helper('url');
+
+		$data = [];
+
+		if(!isset($_SESSION['jxh'])){
+			// 未登录
+			http_response_code(302);
+			header("Location: baoming/login");
+			return;
+		}
+
+		$r = $this->baoming_model->query($_SESSION['jxh']);
+		$data['name'] = $r->name;
+		$data['jxh'] = $r->jxnum;
+		$data['reserve_time'] = $r->reserve_time;
+		$data['verified'] = $r->verified != 0 ? '是' : '否';
+
 		$this->load->view("templates/header");
-		$this->load->view('baoming/status');
+		$this->load->view('baoming/status', $data);
 		$this->load->view("templates/footer");
 	}
 
