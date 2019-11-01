@@ -26,4 +26,21 @@ class baoming_model extends CI_Model {
 		}
 		return false;
 	}
+
+	public function login($jxh, $name, $pw){
+		//$pw = password_hash($pw, PASSWORD_BCRYPT);
+		$query = $this->db->get_where('baoming', [
+			'jxnum'		=> $jxh,
+			'name'		=> $name
+		]);
+		$r = $query->result();
+		if(empty($r)){
+			return false;
+		}
+
+		if(password_verify($pw, $r[0]->passwd)){
+			return true;
+		}
+		return false;
+	}
 }

@@ -85,4 +85,52 @@ class Baoming extends CI_Controller {
 
 		return $out;
 	}
+
+	public function login() {
+		if($_SERVER['REQUEST_METHOD'] === 'GET'){
+			$this->load->view("templates/header");
+			$this->load->view('baoming/login', [
+				'err'	=> false,
+			]);
+			$this->load->view("templates/footer");
+			return;
+		}
+
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
+
+		$errTplMsg = [
+			'required' 		=> "请填写%s",
+			'regex_match'	=> '%s输入有误'
+		];
+		$this->form_validation->set_rules('jxh', '教学号', 'trim|required|regex_match[/^\d{8}$/]', $errTplMsg);
+		$this->form_validation->set_rules('name', '姓名', 'trim|required', $errTplMsg);
+		$this->form_validation->set_rules('password', '密码', 'trim|required', $errTplMsg);
+
+
+
+		if ($this->form_validation->run() == false) {
+			$this->load->view("templates/header");
+			$this->load->view('baoming/login');
+			$this->load->view("templates/footer");
+			return;
+		}
+
+		if(!$this->baoming_model->login($_POST['jxh'], $_POST['name'], $_POST['password'])){
+			$data = [];
+			$data['err'] = true;
+			$data['msg'] = "用户名或密码错误";
+			$this->load->view("templates/header");
+			$this->load->view('baoming/login', $data);
+			$this->load->view("templates/footer");
+			return;
+		}
+
+		$_SESSION['name'] = $_POST['name'];
+		$_SESSION['jxh'] = $_POST['jxh'];
+
+		http_response_code(302);
+		header("Location: baoming/status");
+	}
+
 }
