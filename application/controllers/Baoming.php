@@ -87,6 +87,8 @@ class Baoming extends CI_Controller {
 	}
 
 	public function login() {
+		$this->load->helper('form');
+
 		if($_SERVER['REQUEST_METHOD'] === 'GET'){
 			$this->load->view("templates/header");
 			$this->load->view('baoming/login', [
