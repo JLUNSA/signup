@@ -133,4 +133,29 @@ class Baoming extends CI_Controller {
 		header("Location: baoming/status");
 	}
 
+	public function status(){
+		$this->load->view("templates/header");
+		$this->load->view('baoming/status');
+		$this->load->view("templates/footer");
+	}
+
+	public function query(){
+		if(!isset($_SESSION['jxh'])){
+			http_response_code(403);
+			return;
+		}
+
+		$r = $this->baoming_model->query($_SESSION['jxh']);
+		$j = [
+			"name"			=> $r->name,
+			'jxh'			=> $r->jxnum,
+			'reserve_time'	=> $r->reserve_time,
+			'verified'		=> $r->verified != 0
+		];
+
+		return $this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($j));
+	}
+
 }

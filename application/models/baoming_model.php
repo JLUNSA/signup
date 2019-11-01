@@ -43,4 +43,12 @@ class baoming_model extends CI_Model {
 		}
 		return false;
 	}
+
+	public function query(int $jxh){
+		$query = $this->db->get_where('baoming', [
+			'jxnum'		=> $jxh
+		]);
+
+		return $query->result()[0];
+	}
 }
