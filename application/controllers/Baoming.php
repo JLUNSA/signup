@@ -150,7 +150,7 @@ class Baoming extends CI_Controller
         if (!isset($_SESSION['jxh'])) {
             // 未登录
             http_response_code(302);
-            header("Location: baoming/login");
+            header("Location: /baoming/login");
             return;
         }
 
