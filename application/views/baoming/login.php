@@ -4,7 +4,7 @@
 
 	<?php echo validation_errors('<div class="alert alert-danger" role="alert"><b>', '</b></div>'); ?>
 
-	<?php if($err): ?>
+	<?php if(isset($err) && $err): ?>
 	<div class="alert alert-danger" role="alert"><b><?php echo $msg; ?></b></div>
 	<?php endif; ?>
 

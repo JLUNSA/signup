@@ -118,9 +118,7 @@ class Baoming extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $this->load->view("templates/header");
-            $data['err']=true;
-            $data['msg']=form_error();
-            $this->load->view('baoming/login', $data);   //添加$data
+            $this->load->view('baoming/login');
             $this->load->view("templates/footer");
             return;
         }
