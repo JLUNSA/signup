@@ -45,7 +45,7 @@ COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
 CREATE TABLE `user` (
-	`student_id` INT(11) NOT NULL,
+	`student_id` VARCHAR(10) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`name` VARCHAR(30) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`department` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`email` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_general_ci',
