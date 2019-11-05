@@ -62,7 +62,7 @@ class CaptchaModel extends CI_Model {
 
 	//验证验证码是否正确，并插入log
 	//$studentId for log
-	public function verify(int $studentId, string $code, bool $unset=false) {
+	public function verify(string $studentId, string $code, bool $unset=false) {
 		$this->studentId = $studentId;
 		$this->correctCode = null;
 		$this->inputCode = $code;

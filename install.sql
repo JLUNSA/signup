@@ -12,7 +12,7 @@ ENGINE=InnoDB
 ;
 CREATE TABLE `log` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`student_id` INT(11) NOT NULL,
+	`student_id` VARCHAR(10) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`operation` VARCHAR(20) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`ip` VARCHAR(50) NOT NULL COMMENT 'v6/v4都可以' COLLATE 'utf8mb4_general_ci',
 	`result` VARCHAR(20) NOT NULL COMMENT 'OK/FAILED' COLLATE 'utf8mb4_general_ci',
