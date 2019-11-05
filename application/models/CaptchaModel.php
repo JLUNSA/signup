@@ -21,7 +21,7 @@ class CaptchaModel extends CI_Model {
 		$string = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";//随机挑选其中4个字符，也可以选择更多，注意循环的时候加上，宽度适当调整
 		$vcode = '';
 		for ($i = 0; $i < 4; $i++) {
-			$str[$i] = $string[rand(0, strlen($string))];
+			$str[$i] = $string[rand(0, strlen($string) - 1)];
 			$vcode .= $str[$i];
 		}
 
