@@ -9,6 +9,7 @@ class UserModel extends CI_Model {
 		parent::__construct();
 		$this->load->database();
 		$this->load->library('session');
+		$this->load->model('LogModel');
 	}
 
 	private function setErr(int $id, string $msg){
@@ -87,7 +88,61 @@ class UserModel extends CI_Model {
 			"is_admin"		=> 0,
 		]);
 
+		$this->LogModel->insertLog($studentId, "register", true, [
+			"name"			=> $name,
+			"department"	=> $department,
+			"email"			=> $email,
+			"filename"		=> $photo['name']
+		]);
 		return true;
+	}
+
+	//登录
+	//如果返回false，则说明出错
+	//为了安全起见，不会返回错误信息
+	public function login(
+		string $studentId,
+		string $name,
+		string $password
+	) {
+		if(!$this->isStudentIdValid($studentId)){
+			$this->LogModel->insertLog($studentId, "login", false, [
+				"name"			=> $name,
+				"description"	=> "学号不符合规则"
+			]);
+			return false;
+		}
+
+		$query = $this->db
+			->select("student_id, password, is_admin")
+			->from("user")
+			->where([
+				'student_id'	=> $studentId,
+				'name'			=> $name
+			])
+			->get()->result();
+
+		if(empty($query)){
+			$this->LogModel->insertLog($studentId, "login", false, [
+				"name"			=> $name,
+				"description"	=> "用户不存在"
+			]);
+			return false;
+		}
+		
+		if(password_verify($password, $query[0]->password)){
+			$this->LogModel->insertLog($studentId, "login", true, [
+				"name"			=> $name,
+			]);
+			$this->setLogin($studentId, (bool)$query[0]->is_admin);
+			return true;
+		}
+
+		$this->LogModel->insertLog($studentId, "login", false, [
+			"name"			=> $name,
+			"description"	=> "密码错误"
+		]);
+		return false;
 	}
 
 	//查重
@@ -97,7 +152,7 @@ class UserModel extends CI_Model {
 			->from("user")
 			->where("student_id", $studentId)
 			->get()
-			->result_array();
+			->result();
 
 		if(count($query) > 0){
 			return true;

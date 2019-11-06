@@ -51,9 +51,10 @@ window.onload = function () {
 	});
 
 	//刷新验证码
-	refreshCaptcha.click(function () {
-		$(this).attr("src", "/captcha/get?r=" + Math.random());
-	});
+	function new_captcha() {
+		$("#refreshCaptcha").attr("src", "/captcha/get?r=" + Math.random());
+	}
+	refreshCaptcha.click(new_captcha);
 
 	//验证码验证
 	captcha.blur(function () {
@@ -209,7 +210,7 @@ window.onload = function () {
 		//all ok
 		let formData = new FormData();
 
-		formData.append('studentId', studentId.val());
+		formData.append('student_id', studentId.val());
 		formData.append('name', name.val());
 		formData.append('department', department.val());
 		formData.append('email', email.val());
@@ -254,6 +255,10 @@ window.onload = function () {
 						}
 					});
 				}else {
+					//验证码错误
+					if(data.status === 2){
+						new_captcha();
+					}
 					layer.open({
 						title: '通知',
 						closeBtn: 0,
