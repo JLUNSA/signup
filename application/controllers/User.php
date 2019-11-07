@@ -16,7 +16,9 @@ class User extends CI_Controller {
 			return;
 		}
 		$this->load->view("templates/header");
-		$this->load->view('user/index');
+		$this->load->view('user/index', [
+			"name"	=>	$this->UserModel->getLoggedInUser()['name']
+		]);
 		$this->load->view("templates/footer");
 	}
 
@@ -130,7 +132,7 @@ class User extends CI_Controller {
 			]));
 		}
 
-		$this->UserModel->setLogin($_POST['studentId'], false);
+		$this->UserModel->setLogin($_POST['studentId'], $_POST['name'], false);
 		return $out->set_output(json_encode([
 			"status"	=> 0,
 			"msg"		=> "",

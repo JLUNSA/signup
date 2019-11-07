@@ -45,7 +45,7 @@
 
         //刷新验证码
         function new_captcha() {
-            $("#refreshCaptcha").attr("src", "/captcha/get?r=" + Math.random());
+            refreshCaptcha.attr("src", "/captcha/get?r=" + Math.random());
         }
         refreshCaptcha.click(new_captcha);
 

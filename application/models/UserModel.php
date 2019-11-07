@@ -17,7 +17,7 @@ class UserModel extends CI_Model {
 		$this->errMsg = $msg;
 	}
 
-	private function lastError(){
+	public function lastError(){
 		return [
 			"errId"		=> $this->errId,
 			"errMsg"	=> $this->errMsg
@@ -129,12 +129,12 @@ class UserModel extends CI_Model {
 			]);
 			return false;
 		}
-		
+
 		if(password_verify($password, $query[0]->password)){
 			$this->LogModel->insertLog($studentId, "login", true, [
 				"name"			=> $name,
 			]);
-			$this->setLogin($studentId, (bool)$query[0]->is_admin);
+			$this->setLogin($studentId, $name, (bool)$query[0]->is_admin);
 			return true;
 		}
 
@@ -167,9 +167,10 @@ class UserModel extends CI_Model {
 		return false;
 	}
 
-	public function setLogin(string $studentId, bool $isAdmin){
+	public function setLogin(string $studentId, string $name, bool $isAdmin){
 		$_SESSION['isLoggedIn'] = true;
 		$_SESSION['studentId'] = $studentId;
+		$_SESSION['name'] = $name;
 		$_SESSION['isAdmin'] = $isAdmin;
 	}
 
@@ -179,5 +180,17 @@ class UserModel extends CI_Model {
 		}else{
 			return $_SESSION['isLoggedIn'];
 		}
+	}
+
+	public function getLoggedInUser() {
+		if(!$this->isLoggedIn()){
+			return null;
+		}
+
+		return [
+			"studentId"	=> $_SESSION['studentId'],
+			"name"		=> $_SESSION['name'],
+			"isAdmin"	=> $_SESSION['isAdmin']
+		];
 	}
 }

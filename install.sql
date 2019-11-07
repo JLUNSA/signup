@@ -24,10 +24,10 @@ ENGINE=InnoDB
 AUTO_INCREMENT=2
 ;
 CREATE TABLE `selected_class` (
-	`student_num` INT(11) NOT NULL,
+	`student_id` VARCHAR(10) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`subclass_id` INT(11) NOT NULL,
 	`select_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	UNIQUE INDEX `索引 1` (`student_num`, `subclass_id`)
+	UNIQUE INDEX `索引 1` (`student_id`, `subclass_id`)
 )
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
