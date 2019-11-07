@@ -10,6 +10,13 @@ class ClassSelection extends CI_Controller {
 
 		if(!$this->UserModel->isLoggedIn()){
 			redirect("/user/login");
+			return;
+		}
+
+		$user = $this->UserModel->getLoggedInUser();
+		if(!$user['verified']){
+			$this->output->set_status_header(403);
+			exit();
 		}
 	}
 
@@ -48,7 +55,6 @@ class ClassSelection extends CI_Controller {
 	}
 
 	public function selectClass(){
-		$_POST['subclass_id'] = $_GET['subclass_id'];
 		$out = $this->output->set_content_type('application/json');
 		if(!isset($_POST['subclass_id'])){
 			return $out->set_output(json_encode([
@@ -56,7 +62,6 @@ class ClassSelection extends CI_Controller {
 				"msg"		=> "参数错误",
 			]));
 		}
-
 
 		$subclassId = $_GET['subclass_id'];
 		$r = $this->ClassModel->selectClass($subclassId);

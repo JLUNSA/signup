@@ -16,8 +16,10 @@ class User extends CI_Controller {
 			return;
 		}
 		$this->load->view("templates/header");
+		$user = $this->UserModel->getLoggedInUser();
 		$this->load->view('user/index', [
-			"name"	=>	$this->UserModel->getLoggedInUser()['name']
+			"name"		=>	$user['name'],
+			"verified"	=>	$user['verified'],
 		]);
 		$this->load->view("templates/footer");
 	}
@@ -132,11 +134,16 @@ class User extends CI_Controller {
 			]));
 		}
 
-		$this->UserModel->setLogin($_POST['studentId'], $_POST['name'], false);
+		$this->UserModel->setLogin($_POST['studentId']);
 		return $out->set_output(json_encode([
 			"status"	=> 0,
 			"msg"		=> "",
 		]));
+	}
+
+	public function logout(){
+		$this->UserModel->logout();
+		redirect("/user/login");
 	}
 
 	public function isExist(){

@@ -134,7 +134,7 @@ class UserModel extends CI_Model {
 			$this->LogModel->insertLog($studentId, "login", true, [
 				"name"			=> $name,
 			]);
-			$this->setLogin($studentId, $name, (bool)$query[0]->is_admin);
+			$this->setLogin($studentId);
 			return true;
 		}
 
@@ -167,19 +167,35 @@ class UserModel extends CI_Model {
 		return false;
 	}
 
-	public function setLogin(string $studentId, string $name, bool $isAdmin){
+	public function setLogin(string $studentId){
+		$query = $this->db
+			->select("student_id, name, is_admin, verified")
+			->from("user")
+			->where([
+				'student_id'	=> $studentId
+			])
+			->get()->result()[0];
 		$_SESSION['isLoggedIn'] = true;
-		$_SESSION['studentId'] = $studentId;
-		$_SESSION['name'] = $name;
-		$_SESSION['isAdmin'] = $isAdmin;
+		$_SESSION['studentId'] = $query->student_id;
+		$_SESSION['name'] = $query->name;
+		$_SESSION['verified'] = (bool)$query->verified;
+		$_SESSION['isAdmin'] = (bool)$query->is_admin;
 	}
 
 	public function isLoggedIn(){
-		if(!isset($_SESSION['isLoggedIn'])){
+		if(!isset($_SESSION['isLoggedIn']) || !$_SESSION['isLoggedIn']){
 			return false;
 		}else{
 			return $_SESSION['isLoggedIn'];
 		}
+	}
+
+	public function logout(){
+		$_SESSION['isLoggedIn'] = false;
+		unset($_SESSION['studentId']);
+		unset($_SESSION['name']);
+		unset($_SESSION['verified']);
+		unset($_SESSION['isAdmin']);
 	}
 
 	public function getLoggedInUser() {
@@ -190,7 +206,8 @@ class UserModel extends CI_Model {
 		return [
 			"studentId"	=> $_SESSION['studentId'],
 			"name"		=> $_SESSION['name'],
-			"isAdmin"	=> $_SESSION['isAdmin']
+			"verified"	=> $_SESSION['verified'],
+			"isAdmin"	=> $_SESSION['isAdmin'],
 		];
 	}
 }
