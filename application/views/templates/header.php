@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 	<!-- Custom Theme files -->
-	<link href="/static/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="/static/css/style.css?ver=fa016c8a" rel="stylesheet" type="text/css" media="all" />
 	<!-- //Custom Theme files -->
 	<!-- web font -->
 

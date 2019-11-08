@@ -17,7 +17,7 @@
             <!-- <th>子课程 ID</th> -->
             <!-- <th>课程 ID</th> -->
             <th>标题</th>
-            <th>容量</th>
+            <th>容量(已选)</th>
             <th>开始时间</th>
             <th>结束时间</th>
             <th>选课</th>
@@ -85,8 +85,7 @@
 
         tr.onclick = () => {
             class_table.style.display = 'none';
-            subclass_table.style.display = 'block';
-			console.log(data);
+            subclass_table.style.display = null;
             let formData = new FormData();
             formData.append("class_id", data.class_id);
             fetch('/classSelection/getSubClassList', {
@@ -112,18 +111,15 @@
         // createTD(data.subclass_id, tr)
         // createTD(data.class_id, tr)
         createTD(data.title, tr);
-        createTD(data.capacity, tr);
+        createTD(`${data.capacity}(${data.selected})`, tr);
         createTimestampTD(data.start_time, tr);
         createTimestampTD(data.end_time, tr);
 
         const select = document.createElement('button');
-        select.innerText = data.selected ? '已选' : '选课';
-		if (data.selected) {
+        select.innerText = data.select ? '已选' : '选课';
+		if (data.select) {
             select.setAttribute('disabled', 'disabled')
 		}
-        if (data.select) {
-            select.setAttribute('disabled')
-        }
         select.onclick = () => {
             let formData = new FormData();
             formData.append("subclass_id", data.subclass_id);
