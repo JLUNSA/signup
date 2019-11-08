@@ -48,7 +48,7 @@ server {
 </configuration>
 ```
 
-```
+
 #### APACHE
 ```
 在网站根目录下新建.htaccess文件，写入如下内容:
@@ -61,6 +61,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d  
 
 RewriteRule ^(.*)$ /index.php?/$1 [L] 
+```
 
 2. 导入`install.sql`
 
