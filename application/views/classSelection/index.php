@@ -61,13 +61,14 @@
         createTimestampTD(data.end_select, tr);
 
         tr.onclick = () => {
-            table.style.display = 'none';
+            class_table.style.display = 'none';
             subclass_table.style.display = 'block';
+			console.log(data);
+            let formData = new FormData();
+            formData.append("class_id", data.class_id);
             fetch('/classSelection/getSubClassList', {
                 method: 'POST',
-                body: JSON.stringify({
-                    subclass_id: data.subclass_id
-                })
+                body: formData
             }).then(resp => resp.json()).then(json => {
                 if (json.status === 0) {
                     json.data.forEach((c) => {
@@ -94,18 +95,23 @@
 
         const select = document.createElement('button');
         select.innerText = data.selected ? '已选' : '选课';
+		if (data.selected) {
+            select.setAttribute('disabled', 'disabled')
+		}
         if (data.select) {
             select.setAttribute('disabled')
         }
         select.onclick = () => {
+            let formData = new FormData();
+            formData.append("subclass_id", data.subclass_id);
             fetch('/classSelection/selectClass', {
                 method: 'POST',
-                body: JSON.stringify({
-                    subclass_id: data.subclass_id
-                })
+                body: formData
             }).then((data) => data.json()).then((json) => {
                 if (json.status === 0) {
-                    select.setAttribute('disabled')
+                    select.setAttribute('disabled', 'disabled');
+                    select.innerText = '已选';
+                    alert('选课成功！')
                 } else {
                     alert(json.msg)
                 }
@@ -114,7 +120,7 @@
             })
         };
         const td = document.createElement('td');
-        td.appendChild(content);
+        td.appendChild(select);
         tr.appendChild(td);
 
         return tr
