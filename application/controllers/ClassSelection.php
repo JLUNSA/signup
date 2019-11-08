@@ -63,7 +63,7 @@ class ClassSelection extends CI_Controller {
 			]));
 		}
 
-		$subclassId = $_GET['subclass_id'];
+		$subclassId = $_POST['subclass_id'];
 		$r = $this->ClassModel->selectClass($subclassId);
 		if($r){
 			return $out->set_output(json_encode([

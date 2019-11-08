@@ -121,7 +121,7 @@ class User extends CI_Controller {
 		}
 
 		if(!$this->UserModel->createUser(
-			$_POST['studentId'],
+			$_POST['student_id'],
 			$_POST['name'],
 			$_POST['department'],
 			$_POST['email'],
