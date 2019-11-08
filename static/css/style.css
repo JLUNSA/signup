@@ -169,7 +169,7 @@ h2{
 }
 
 .main-agileinfo {
-  width: 35%;
+  width: 60%;
   margin: 3em auto;
   background: rgba(0, 0, 0, 0.20);
   background-size: cover;
@@ -195,7 +195,7 @@ label[for="uploadfile"], input[type="text"], input[type="email"], input[type="pa
   transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
   background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 96%, #fff 4%);
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #fff 4%);
-  background-position: -800px 0;
+  background-position: -1000px 0;
   background-size: 100%;
   background-repeat: no-repeat;
   color: #fff;
@@ -497,25 +497,25 @@ input.checkbox:checked:after {
   }
 
   .main-agileinfo {
-    width: 36%;
+    width: 55%;
   }
 }
 
 @media(max-width:1280px) {
   .main-agileinfo {
-    width: 40%;
+    width: 60%;
   }
 }
 
 @media(max-width:1080px) {
   .main-agileinfo {
-    width: 46%;
+    width: 65%;
   }
 }
 
 @media(max-width:1024px) {
   .main-agileinfo {
-    width: 49%;
+    width: 70%;
   }
 }
 
@@ -743,4 +743,58 @@ input.checkbox:checked:after {
 	margin-bottom: 20px;
 	border: 1px solid transparent;
 	border-radius: 4px;
+}
+
+table {
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 20px;
+}
+
+table {
+	color: white;
+	background-color: transparent;
+}
+
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+thead {
+	display: table-header-group;
+	vertical-align: middle;
+	border-color: inherit;
+}
+
+tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+
+table>thead>tr>th {
+	vertical-align: bottom;
+	border-bottom: 2px solid #ddd;
+}
+
+th {
+	text-align: left;
+}
+
+td, th {
+	padding: 0;
+	margin: .5em;
+}
+
+table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, table>thead>tr>td, table>thead>tr>th {
+	padding: 8px;
+	line-height: 1.42857143;
+	vertical-align: top;
+	border-top: 1px solid #ddd;
+}
+
+table>thead>tr>th {
+	vertical-align: bottom;
+	border-bottom: 2px solid #ddd;
 }

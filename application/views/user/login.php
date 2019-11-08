@@ -1,6 +1,6 @@
 <div style="padding: 2em">
 	<h3 style="font-family:'mylangqian', serif; color: white; margin-bottom: 2em;">登录</h3>
-	<div class="alert alert-danger" role="alert" style="visibility: hidden" id="err"><b></b></div>
+	<div class="alert alert-danger" role="alert" style="display: none" id="err"><b></b></div>
 
 	<input class="text" type="text" id="student_id" placeholder="学号" missingMessage="必须填写8位学号" required="true" maxlength="8" onkeyup="numberOnly(this)" onafterpaste="numberOnly(this)">
 	<input class="text" type="text" id="name" placeholder="姓名" required="">
@@ -72,7 +72,7 @@
             button.prop('disabled', true);
             err.children().html("");
             err.css({
-                "visibility": "hidden"
+                "display": "none"
             });
 
             $.ajax({
@@ -96,7 +96,7 @@
 
                         err.children().html(data.msg);
                         err.css({
-                            "visibility": "visible"
+                            "display": "block"
 						})
 					}
 				},
