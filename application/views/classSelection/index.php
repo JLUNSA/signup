@@ -23,8 +23,8 @@
     </table>
 </div>
 <script>
-    const class_table = document.querySelector('#classList')
-    const subclass_table = document.querySelector('#subclassList')
+    const class_table = document.querySelector('#classList');
+    const subclass_table = document.querySelector('#subclassList');
 
     window.onload = function() {
         fetch('/classSelection/getClassList')
@@ -37,32 +37,32 @@
                     alert(json.msg)
                 }
             }).catch(() => alert('网络错误'))
-    }
+    };
 
     function createTD(content, tr) {
-        const td = document.createElement('td')
-        td.innerText = content
+        const td = document.createElement('td');
+        td.innerText = content;
         tr.appendChild(td)
     }
 
     function createTimestampTD(timestamp, tr) {
-        const date = new Date(timestamp)
+        const date = new Date(timestamp);
         createTD(`${date.toLocaleDateString()} ${date.toLocaleTimeString()}`, tr)
     }
 
     function createClassTableItem(data) {
-        const tr = document.createElement('tr')
+        const tr = document.createElement('tr');
 
         // createTD(data.class_id, tr)
-        createTD(data.title, tr)
-        createTD(data.detail, tr)
-        createTimestampTD(data.date, tr)
-        createTimestampTD(data.start_select, tr)
-        createTimestampTD(data.end_select, tr)
+        createTD(data.title, tr);
+        createTD(data.detail, tr);
+        createTimestampTD(data.date, tr);
+        createTimestampTD(data.start_select, tr);
+        createTimestampTD(data.end_select, tr);
 
         tr.onclick = () => {
-            table.style.display = 'none'
-            subclass_table.style.display = 'block'
+            table.style.display = 'none';
+            subclass_table.style.display = 'block';
             fetch('/classSelection/getSubClassList', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -77,23 +77,23 @@
                     alert(json.msg)
                 }
             }).catch(() => alert('网络错误'))
-        }
+        };
 
         return tr
     }
 
     function createSubClassTableItem(data) {
-        const tr = document.createElement('tr')
+        const tr = document.createElement('tr');
 
         // createTD(data.subclass_id, tr)
         // createTD(data.class_id, tr)
-        createTD(data.title, tr)
-        createTD(data.capacity, tr)
-        createTimestampTD(data.start_time, tr)
-        createTimestampTD(data.end_time, tr)
+        createTD(data.title, tr);
+        createTD(data.capacity, tr);
+        createTimestampTD(data.start_time, tr);
+        createTimestampTD(data.end_time, tr);
 
-        const select = document.createElement('button')
-        select.innerText = data.selected ? '已选' : '选课'
+        const select = document.createElement('button');
+        select.innerText = data.selected ? '已选' : '选课';
         if (data.select) {
             select.setAttribute('disabled')
         }
@@ -112,10 +112,10 @@
             }).catch(() => {
                 alert('网络错误')
             })
-        }
-        const td = document.createElement('td')
-        td.appendChild(content)
-        tr.appendChild(td)
+        };
+        const td = document.createElement('td');
+        td.appendChild(content);
+        tr.appendChild(td);
 
         return tr
     }
