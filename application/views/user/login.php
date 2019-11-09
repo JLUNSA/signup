@@ -86,6 +86,7 @@
 				},
                 dataType: "json",
                 success: function (data) {
+                    button.prop('disabled', false);
                     if(data.status === 0){
                         window.location.href = "/user/index";
 					}else{
@@ -100,10 +101,8 @@
 						})
 					}
 				},
-                complete: function () {
-                    button.prop('disabled', false);
-                },
                 error: function (data) {
+                    button.prop('disabled', false);
                     alert("网络错误");
                 }
         	})

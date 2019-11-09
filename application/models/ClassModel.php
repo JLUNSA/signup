@@ -60,6 +60,7 @@ class ClassModel extends CI_Model {
 				->from("selected_class")
 				->where("subclass_id", $item->subclass_id)
 				->count_all_results();
+			$item->capacity = (int)$item->capacity;
 		}
 
 		return $subclassList;
