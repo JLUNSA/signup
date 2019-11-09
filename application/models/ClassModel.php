@@ -78,8 +78,15 @@ class ClassModel extends CI_Model {
 		}
 		$q = $q[0];
 
+		$classId = $q->class_id;
+
+		if ($this->checkMutual($classId)) {
+			$this->setErr(5, "只能选择一个课时");
+			return false;
+		}
+
 		//检查是否在选课时间内
-		if(!$this->isClassExist($q->class_id)) {
+		if(!$this->isClassExist($classId)) {
 			$this->setErr(2, "当前不在选课时间");
 			return false;
 		}
@@ -137,5 +144,30 @@ class ClassModel extends CI_Model {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * 检查是否选择过该课程
+	 *
+	 * @param $classId
+	 * @return bool
+	 */
+	public function checkMutual($classId) {
+		$selected = $this->getSelectedClassList();
+
+		// TODO 修改为多表联查
+		$q = $this->db
+			->select("subclass_id")
+			->from("subclass")
+			->where("class_id", $classId)
+			->get()->result();
+
+		foreach ($q as $item) {
+			if (in_array($item->subclass_id, $selected)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
