@@ -41,7 +41,7 @@
             "S"  : this.getMilliseconds()             //毫秒
         };
         if(/(y+)/.test(fmt)) {
-            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+            fmt=fmt.replace(RegExp.$1, `${this.getFullYear()}`.substr(4 - RegExp.$1.length));
         }
         for(var k in o) {
             if(new RegExp("("+ k +")").test(fmt)){
@@ -52,16 +52,14 @@
     };
 
     window.onload = function() {
-        fetch('/classSelection/getClassList', {credentials: 'include'})
+        fetch('/classSelection/getClassList', { credentials: 'include' })
             .then(resp => resp.json()).then(json => {
                 if (json.status === 0) {
-                    json.data.forEach((c) => {
-                        class_table.appendChild(createClassTableItem(c))
-                    })
+                    json.data.forEach(c => class_table.appendChild(createClassTableItem(c)));
                 } else {
-                    alert(json.msg)
+                    alert(json.msg);
                 }
-            }).catch(() => alert('网络错误'))
+            }).catch(() => alert('网络错误'));
     };
 
     function createTD(content, tr) {
@@ -72,12 +70,12 @@
 
     function createDateTD(timestamp, tr) {
         const date = new Date(timestamp.replace(/-/g, '/'));
-        createTD(date.format("MM月dd日"), tr)
+        createTD(date.format("MM月dd日"), tr);
     }
 
     function createDateTimeTD(timestamp, tr) {
         const date = new Date(timestamp.replace(/-/g, '/'));
-        createTD(date.format("MM月dd日 hh:mm"), tr)
+        createTD(date.format("MM月dd日 hh:mm"), tr);
     }
 
     function createClassTableItem(data) {
@@ -101,16 +99,14 @@
                 credentials: 'include'
             }).then(resp => resp.json()).then(json => {
                 if (json.status === 0) {
-                    json.data.forEach((c) => {
-                        subclass_table.appendChild(createSubClassTableItem(c))
-                    })
+                    json.data.forEach(c => subclass_table.appendChild(createSubClassTableItem(c)));
                 } else {
-                    alert(json.msg)
+                    alert(json.msg);
                 }
-            }).catch(() => alert('网络错误'))
+            }).catch(() => alert('网络错误'));
         };
 
-        return tr
+        return tr;
     }
 
     function createSubClassTableItem(data) {
@@ -126,7 +122,7 @@
         const select = document.createElement('button');
         select.innerText = data.select ? '已选' : '选课';
 		if (data.select) {
-            select.setAttribute('disabled', 'disabled')
+            select.setAttribute('disabled', 'disabled');
 		}
         select.onclick = () => {
             let formData = new FormData();
@@ -139,18 +135,18 @@
                 if (json.status === 0) {
                     select.setAttribute('disabled', 'disabled');
                     select.innerText = '已选';
-                    alert('选课成功！')
+                    alert('选课成功！');
                 } else {
-                    alert(json.msg)
+                    alert(json.msg);
                 }
             }).catch(() => {
-                alert('网络错误')
+                alert('网络错误');
             })
         };
         const td = document.createElement('td');
         td.appendChild(select);
         tr.appendChild(td);
 
-        return tr
+        return tr;
     }
 </script>
