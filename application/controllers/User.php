@@ -134,7 +134,7 @@ class User extends CI_Controller {
 			]));
 		}
 
-		$this->UserModel->setLogin($_POST['studentId']);
+		$this->UserModel->setLogin($_POST['student_id']);
 		return $out->set_output(json_encode([
 			"status"	=> 0,
 			"msg"		=> "",
