@@ -125,6 +125,8 @@
             select.setAttribute('disabled', 'disabled');
 		}
         select.onclick = () => {
+            if (!confirm(`您正在选择的是：${data.title}，选课后不可更改，是否继续？`)) return;
+
             let formData = new FormData();
             formData.append("subclass_id", data.subclass_id);
             fetch('/classSelection/selectClass', {
