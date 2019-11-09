@@ -120,4 +120,22 @@ class ClassModel extends CI_Model {
 		$this->db->trans_complete();
 		return true;
 	}
+
+	public function getSelectedClassList(){
+		$studentId = $this->UserModel->getLoggedInUser()['studentId'];
+
+		$selectedClassList = $this->db
+			->select("subclass_id")
+			->from("selected_class")
+			->where("student_id", $studentId)
+			->get()->result();
+
+		$result = [];
+
+		foreach ($selectedClassList as $item) {
+			$result[] = $item->subclass_id;
+		}
+
+		return $result;
+	}
 }

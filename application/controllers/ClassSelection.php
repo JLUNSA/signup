@@ -46,11 +46,15 @@ class ClassSelection extends CI_Controller {
 			]));
 		}
 		$classId = (int)$_POST['class_id'];
-		$r = $this->ClassModel->getSubClassList($classId);
+		$result = $this->ClassModel->getSubClassList($classId);
+		$selected = $this->ClassModel->getSelectedClassList();
+		foreach ($result as &$item) {
+			$item->select = in_array($item->subclass_id, $selected);
+		}
 		return $out->set_output(json_encode([
 			"status"	=> 0,
 			"msg"		=> "",
-			"data"		=> $r
+			"data"		=> $result
 		]));
 	}
 
