@@ -24,7 +24,9 @@
         </tr>
     </table>
 </div>
-<script>
+
+<script src="/static/js/babel.min.js"></script>
+<script type="text/babel">
     const class_table = document.querySelector('#classList');
     const subclass_table = document.querySelector('#subclassList');
 
@@ -50,7 +52,7 @@
     };
 
     window.onload = function() {
-        fetch('/classSelection/getClassList')
+        fetch('/classSelection/getClassList', {credentials: 'include'})
             .then(resp => resp.json()).then(json => {
                 if (json.status === 0) {
                     json.data.forEach((c) => {
@@ -90,7 +92,8 @@
             formData.append("class_id", data.class_id);
             fetch('/classSelection/getSubClassList', {
                 method: 'POST',
-                body: formData
+                body: formData,
+                credentials: 'include'
             }).then(resp => resp.json()).then(json => {
                 if (json.status === 0) {
                     json.data.forEach((c) => {
@@ -125,7 +128,8 @@
             formData.append("subclass_id", data.subclass_id);
             fetch('/classSelection/selectClass', {
                 method: 'POST',
-                body: formData
+                body: formData,
+                credentials: 'include'
             }).then((data) => data.json()).then((json) => {
                 if (json.status === 0) {
                     select.setAttribute('disabled', 'disabled');
