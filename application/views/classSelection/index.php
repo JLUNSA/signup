@@ -70,8 +70,13 @@
         tr.appendChild(td)
     }
 
-    function createTimestampTD(timestamp, tr) {
-        const date = new Date(timestamp);
+    function createDateTD(timestamp, tr) {
+        const date = new Date(timestamp.replace(/-/g, '/'));
+        createTD(date.format("MM月dd日"), tr)
+    }
+
+    function createDateTimeTD(timestamp, tr) {
+        const date = new Date(timestamp.replace(/-/g, '/'));
         createTD(date.format("MM月dd日 hh:mm"), tr)
     }
 
@@ -81,9 +86,9 @@
         // createTD(data.class_id, tr)
         createTD(data.title, tr);
         createTD(data.detail, tr);
-        createTimestampTD(data.date, tr);
-        createTimestampTD(data.start_select, tr);
-        createTimestampTD(data.end_select, tr);
+        createDateTD(data.date, tr);
+        createDateTimeTD(data.start_select, tr);
+        createDateTimeTD(data.end_select, tr);
 
         tr.onclick = () => {
             class_table.style.display = 'none';
@@ -115,8 +120,8 @@
         // createTD(data.class_id, tr)
         createTD(data.title, tr);
         createTD(`${data.capacity}(${data.selected})`, tr);
-        createTimestampTD(data.start_time, tr);
-        createTimestampTD(data.end_time, tr);
+        createDateTimeTD(data.start_time, tr);
+        createDateTimeTD(data.end_time, tr);
 
         const select = document.createElement('button');
         select.innerText = data.select ? '已选' : '选课';
