@@ -15,8 +15,13 @@ class User extends CI_Controller {
 			redirect("/user/login");
 			return;
 		}
-		$this->load->view("templates/header");
+
+		//刷新登录
 		$user = $this->UserModel->getLoggedInUser();
+		$this->UserModel->setLogin($user['studentId']);
+		$user = $this->UserModel->getLoggedInUser();
+
+		$this->load->view("templates/header");
 		$this->load->view('user/index', [
 			"name"		=>	$user['name'],
 			"verified"	=>	$user['verified'],
