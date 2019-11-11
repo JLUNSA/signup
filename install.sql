@@ -61,8 +61,10 @@ ENGINE=InnoDB
 ;
 CREATE TABLE `stream` (
 	`class_id` INT(11) NOT NULL,
-	`path` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_general_ci'
+	`path` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`class_id`)
 )
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
+

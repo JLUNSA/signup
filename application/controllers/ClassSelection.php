@@ -26,6 +26,12 @@ class ClassSelection extends CI_Controller {
 		$this->load->view("templates/footer");
 	}
 
+	public function selectedClass(){
+		$this->load->view("templates/header");
+		$this->load->view('classSelection/selectedClass');
+		$this->load->view("templates/footer");
+	}
+
 	public function getClassList(){
 		$r = $this->ClassModel->getClassList();
 		return $this->output
@@ -81,5 +87,14 @@ class ClassSelection extends CI_Controller {
 			]));
 		}
 
+	}
+
+	public function getSelectedClass(){
+		return $this->output
+			->set_content_type('application/json')
+			->set_output(json_encode([
+			"status"	=> 0,
+			"data"		=> $this->ClassModel->getSelectedClassList(true),
+		]));
 	}
 }

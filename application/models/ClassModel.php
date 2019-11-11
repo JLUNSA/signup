@@ -24,18 +24,21 @@ class ClassModel extends CI_Model {
 		];
 	}
 
-	public function getClassList(){
-		return $this->db
+	public function getClassList(bool $ignoreTime=false){
+		$query = $this->db
 			->select("*")
-			->from("class")
-			->where("start_select <=", date('Y-m-d H:i:s'))
-			->where("end_select >=", date('Y-m-d H:i:s'))
-			->get()->result();
+			->from("class");
+		if(!$ignoreTime){
+			$query = $query
+				->where("start_select <=", date('Y-m-d H:i:s'))
+				->where("end_select >=", date('Y-m-d H:i:s'));
+		}
+		return $query->get()->result();
 	}
 
 	//检查课程是否存在
-	private function isClassExist(int $classId){
-		$classList = $this->getClassList();
+	private function isClassExist(int $classId, bool $ignoreTime=false){
+		$classList = $this->getClassList($ignoreTime);
 		foreach($classList as $i){
 			if($i->class_id == $classId){
 				return true;
@@ -44,8 +47,8 @@ class ClassModel extends CI_Model {
 		return false;
 	}
 
-	public function getSubClassList(int $classId){
-		if(!$this->isClassExist($classId)) {
+	public function getSubClassList(int $classId, bool $ignoreTime=false){
+		if(!$this->isClassExist($classId, $ignoreTime)) {
 			return [];
 		}
 
@@ -129,7 +132,7 @@ class ClassModel extends CI_Model {
 		return true;
 	}
 
-	public function getSelectedClassList(){
+	public function getSelectedClassList($detail=false){
 		$studentId = $this->UserModel->getLoggedInUser()['studentId'];
 
 		$selectedClassList = $this->db
@@ -138,10 +141,32 @@ class ClassModel extends CI_Model {
 			->where("student_id", $studentId)
 			->get()->result();
 
-		$result = [];
+		foreach ($selectedClassList as $i) {
+			if($detail){
+				$subclass = $this->db
+					->select("class_id, start_time, end_time")
+					->from("subclass")
+					->where("subclass_id", $i->subclass_id)
+					->get()->result()[0];
 
-		foreach ($selectedClassList as $item) {
-			$result[] = $item->subclass_id;
+				$class = $this->db
+					->select("*")
+					->from("class")
+					->where("class_id", $subclass->class_id)
+					->get()->result()[0];
+
+				$video = $this->db
+					->select("*")
+					->from("stream")
+					->where("class_id", $subclass->class_id)
+					->get()->result();
+				$class->start_time = $subclass->start_time;
+				$class->end_time = $subclass->end_time;
+				$class->have_stream = !empty($video);
+				$result[] = $class;
+			} else {
+				$result[] = $i->subclass_id;
+			}
 		}
 
 		return $result;

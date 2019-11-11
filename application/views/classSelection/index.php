@@ -45,7 +45,7 @@
         }
         for(var k in o) {
             if(new RegExp("("+ k +")").test(fmt)){
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length===1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
             }
         }
         return fmt;
@@ -55,6 +55,9 @@
         fetch('/classSelection/getClassList', { credentials: 'include' })
             .then(resp => resp.json()).then(json => {
                 if (json.status === 0) {
+                    if(json.data.length === 0){
+                        alert("当前没有可选择的课程"); //TODO:change me
+					}
                     json.data.forEach(c => class_table.appendChild(createClassTableItem(c)));
                 } else {
                     alert(json.msg);
