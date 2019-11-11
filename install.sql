@@ -59,3 +59,10 @@ CREATE TABLE `user` (
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
+CREATE TABLE `stream` (
+	`class_id` INT(11) NOT NULL,
+	`path` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_general_ci'
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;
