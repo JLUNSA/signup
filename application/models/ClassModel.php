@@ -141,6 +141,7 @@ class ClassModel extends CI_Model {
 			->where("student_id", $studentId)
 			->get()->result();
 
+		$result = [];
 		foreach ($selectedClassList as $i) {
 			if($detail){
 				$subclass = $this->db
